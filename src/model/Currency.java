@@ -13,7 +13,6 @@ public class Currency {
         return currency;
     }
 
-
     public Currency(String name,double currency)
     {
         this.name = name;
