@@ -1,21 +1,28 @@
 package controllerView;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import model.Currency;
 import model.CurrencyConverter;
 
+import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.ResourceBundle;
 
 /**
  * Controller für CurrencyConverter
  */
-public class CurrencyConverterC {
+public class CurrencyConverterC implements Initializable {
   
   @FXML
   private TextField txtEuro;
   @FXML
   private TextField txtYen;
+  @FXML
+  private ChoiceBox choiceBox;
   
   private CurrencyConverter currencyConverter;
   
@@ -53,8 +60,8 @@ public class CurrencyConverterC {
     try {
 //    double euro = Double.parseDouble(txtEuro.getText());
       double euro = DEC2FORMAT.parse(txtEuro.getText()).doubleValue();
-      double yen = currencyConverter.euroToYen(euro);
-      double usdollar = currencyConverter.euroToUSDollar(euro);
+      String s = (String)choiceBox.getValue();
+      double yen = currencyConverter.euroConvert(s,euro);
 //    txtYen.setText(String.valueOf(yen));
       txtYen.setText(DEC2FORMAT.format(yen));
     }
@@ -62,5 +69,15 @@ public class CurrencyConverterC {
       System.out.println(e.getMessage());
 //    txtMsg.setText(e.GetMessage);
     }
+  }
+
+  @Override
+  public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    for (int i = 0; i < currencyConverter.currency.size(); i++) {
+
+      choiceBox.getItems().add(currencyConverter.getSign(i));
+    }
+    currencyConverter = new CurrencyConverter();
   }
 }

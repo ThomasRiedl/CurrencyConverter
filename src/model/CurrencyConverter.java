@@ -25,6 +25,6 @@ public class CurrencyConverter {
             if(c.getName().equals(sign))
                 a = c.getCurrency();
         }
-    return euro = a;
+    return euro * a;
     }
 }
